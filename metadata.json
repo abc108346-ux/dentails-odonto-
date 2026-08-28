@@ -1,0 +1,8 @@
+{
+  "name": "Dentalis Odontologia Integrada",
+  "description": "Um novo conceito em Odontologia. Especialistas em implantes e estética.",
+  "requestFramePermissions": [],
+  "majorCapabilities": [
+    "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
+  ]
+}
