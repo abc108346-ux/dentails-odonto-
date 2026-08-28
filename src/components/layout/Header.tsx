@@ -5,12 +5,23 @@ import { cn } from '../../lib/utils';
 
 export default function Header() {
   const [isOpen, setIsOpen] = useState(false);
+  const [isScrolled, setIsScrolled] = useState(false);
   const location = useLocation();
 
   // Close menu when route changes
   useEffect(() => {
     setIsOpen(false);
   }, [location.pathname]);
+
+  // Handle scroll effect
+  useEffect(() => {
+    const handleScroll = () => {
+      setIsScrolled(window.scrollY > 20);
+    };
+    
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
 
   const navLinks = [
     { name: 'Início', path: '/' },
@@ -19,15 +30,28 @@ export default function Header() {
   ];
 
   return (
-    <header className="fixed top-0 w-full bg-white/90 backdrop-blur-md z-50 border-b border-gray-100 shadow-sm transition-all duration-300">
+    <header 
+      className={cn(
+        "fixed top-0 w-full z-50 transition-all duration-300",
+        isScrolled 
+          ? "bg-white/95 backdrop-blur-md border-b border-gray-100 shadow-md" 
+          : "bg-white/50 backdrop-blur-sm border-transparent"
+      )}
+    >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex justify-between items-center h-24">
+        <div className={cn(
+          "flex justify-between items-center transition-all duration-300",
+          isScrolled ? "h-16" : "h-24"
+        )}>
           {/* Logo */}
           <Link to="/" className="flex-shrink-0 flex items-center">
             <img 
               src="https://i.postimg.cc/dtGvqWF1/images-(1).png" 
               alt="Dentalis Odontologia Integrada" 
-              className="h-16 w-auto object-contain"
+              className={cn(
+                "w-auto object-contain transition-all duration-300",
+                isScrolled ? "h-12" : "h-16"
+              )}
             />
           </Link>
 
